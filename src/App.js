@@ -26,8 +26,11 @@ function App() {
 
 
   return (
-    <div className="container">
-      {staticTodolist.map((todo) => <li>{todo.name}</li>)}
+    <div className="container text-center">
+      <h1>My TodoList</h1>
+      <ul className="list-group list-group-flush">
+        {staticTodolist.map((todo) => <li key={todo.id} className="list-group-item">{todo.name}</li>)}
+      </ul>
     </div>
   );
 }
