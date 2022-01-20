@@ -30,6 +30,14 @@ function App() {
     alert(input.current.value);
   }
 
+  const addTodo = () => {
+    const newTodo = {
+      name: input.current.value,
+      id: todolist.length + 1
+    }
+    setTodolist([...todolist, newTodo]);
+  }
+
 
   return (
     <div className="container text-center">
@@ -38,7 +46,7 @@ function App() {
         <div className="row">
           <div className="col-6 mx-auto">
             <input type="text" ref={input}></input>
-            <button onClick={getValue} className="btn btn-success mx-2">Add</button>
+            <button onClick={addTodo} className="btn btn-success mx-2">Add</button>
           </div>
         </div>
       </div>
