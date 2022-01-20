@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import { Counter } from './features/counter/Counter';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function App() {
   const staticTodolist = [
@@ -24,14 +24,10 @@ function App() {
     setTodolist(staticTodolist);
   }, []);
 
-  const [input, setInput] = useState('');
-
-  const saveValue = (e) => {
-    setInput(e.target.value);
-  }
+  const input = useRef('');
 
   const getValue = () => {
-    todolist.push({ name: input, id: 4 });
+    alert(input.current.value);
   }
 
 
@@ -41,7 +37,7 @@ function App() {
       <div className="box my-2">
         <div className="row">
           <div className="col-6 mx-auto">
-            <input type="text" value={input} onChange={saveValue}></input>
+            <input type="text" ref={input}></input>
             <button onClick={getValue} className="btn btn-success mx-2">Add</button>
           </div>
         </div>
