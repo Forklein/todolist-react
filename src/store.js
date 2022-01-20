@@ -19,7 +19,7 @@ const staticTodolist = [
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case addTodo:
+        case 'addTodo':
             const newTodo = {
                 name: action.payload.name,
                 id: staticTodolist.length + 1
@@ -31,4 +31,4 @@ const reducer = (state, action) => {
 }
 
 
-export const store = createStore(reducer, staticTodolist);
+export const store = createStore(reducer, staticTodolist, window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__());

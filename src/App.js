@@ -1,41 +1,59 @@
 import './App.css';
 import React from 'react';
 import { Counter } from './features/counter/Counter';
+import { connect } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
 
-function App() {
-  const staticTodolist = [
-    {
-      name: 'Sveglia',
-      id: 1,
-    },
-    {
-      name: 'Colazione',
-      id: 2,
-    },
-    {
-      name: 'Programmare',
-      id: 3,
-    },
-  ];
+function App({ dispatch }) {
+  // const staticTodolist = [
+  //   {
+  //     name: 'Sveglia',
+  //     id: 1,
+  //   },
+  //   {
+  //     name: 'Colazione',
+  //     id: 2,
+  //   },
+  //   {
+  //     name: 'Programmare',
+  //     id: 3,
+  //   },
+  // ];
 
-  const [todolist, setTodolist] = useState([]);
-  useEffect(() => {
-    setTodolist(staticTodolist);
-  }, []);
+  // const [todolist, setTodolist] = useState([]);
+  // useEffect(() => {
+  //   setTodolist(staticTodolist);
+  // }, []);
+
+  const todolist = [];
 
   const input = useRef('');
 
-  const getValue = () => {
-    alert(input.current.value);
-  }
+  // const getValue = () => {
+  //   alert(input.current.value);
+  // }
+
+  // const addTodo = () => {
+  //   const newTodo = {
+  //     name: input.current.value,
+  //     id: todolist.length + 1
+  //   }
+  //   setTodolist([...todolist, newTodo]);
+  // }
 
   const addTodo = () => {
-    const newTodo = {
-      name: input.current.value,
-      id: todolist.length + 1
-    }
-    setTodolist([...todolist, newTodo]);
+    // const newTodo = {
+    //   name: input.current.value,
+    //   id: todolist.length + 1
+    // }
+    dispatch(
+      {
+        type: 'addTodo',
+        payload: {
+          name: input.current.value,
+        }
+      }
+    );
   }
 
 
@@ -57,4 +75,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect()(App);
