@@ -4,7 +4,7 @@ import { Counter } from './features/counter/Counter';
 import { connect } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
 
-function App({ dispatch }) {
+function App({ dispatch, todolist }) {
   // const staticTodolist = [
   //   {
   //     name: 'Sveglia',
@@ -24,8 +24,6 @@ function App({ dispatch }) {
   // useEffect(() => {
   //   setTodolist(staticTodolist);
   // }, []);
-
-  const todolist = [];
 
   const input = useRef('');
 
@@ -51,6 +49,7 @@ function App({ dispatch }) {
         type: 'addTodo',
         payload: {
           name: input.current.value,
+          id: todolist.length + 1
         }
       }
     );
@@ -75,4 +74,8 @@ function App({ dispatch }) {
   );
 }
 
-export default connect()(App);
+const matchStateToProps = (state) => {
+  return { todolist: [...state] }
+}
+
+export default connect(matchStateToProps)(App);

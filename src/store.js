@@ -22,7 +22,7 @@ const reducer = (state, action) => {
         case 'addTodo':
             const newTodo = {
                 name: action.payload.name,
-                id: staticTodolist.length + 1
+                id: action.payload.id
             }
             return [...state, newTodo];
         default:
