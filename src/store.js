@@ -25,6 +25,8 @@ const reducer = (state, action) => {
                 id: action.payload.id
             }
             return [...state, newTodo];
+        case 'delTodo':
+            return state.splice(0, action.payload.index);
         default:
             return state;
     }

@@ -55,6 +55,15 @@ function App({ dispatch, todolist }) {
     );
   }
 
+  const delTodo = (i) => {
+    dispatch({
+      type: 'delTodo',
+      payload: {
+        index: i
+      }
+    })
+  }
+
 
   return (
     <div className="container text-center">
@@ -68,7 +77,7 @@ function App({ dispatch, todolist }) {
         </div>
       </div>
       <ul className="list-group list-group-flush">
-        {todolist.map((todo) => <li key={todo.id} className="list-group-item">{todo.name}</li>)}
+        {todolist.map((todo, index) => <li key={todo.id} className="list-group-item">{todo.name} <i onClick={(e) => delTodo(index)} className="fas fa-trash-alt text-danger"></i></li>)}
       </ul>
     </div >
   );
