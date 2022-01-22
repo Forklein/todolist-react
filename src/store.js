@@ -26,7 +26,12 @@ const reducer = (state, action) => {
             }
             return [...state, newTodo];
         case 'delTodo':
-            return state.splice(0, action.payload.index);
+            const newState = state.filter((el) => {
+                if (!el.name.includes(action.payload.name)) {
+                    return true;
+                }
+            })
+            return newState;
         default:
             return state;
     }
