@@ -26,12 +26,7 @@ const reducer = (state, action) => {
             }
             return [...state, newTodo];
         case 'delTodo':
-            const newState = state.filter((el) => {
-                if (!el.name.includes(action.payload.name)) {
-                    return true;
-                }
-            })
-            return newState;
+            return state.filter((element) => element.name !== action.payload.name);
         default:
             return state;
     }
