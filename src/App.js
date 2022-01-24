@@ -3,6 +3,7 @@ import React from 'react';
 import { Counter } from './features/counter/Counter';
 import { connect } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
+import Alert from './components/alert';
 
 function App({ dispatch, todolist }) {
   // const staticTodolist = [
@@ -24,6 +25,9 @@ function App({ dispatch, todolist }) {
   // useEffect(() => {
   //   setTodolist(staticTodolist);
   // }, []);
+
+  const [isDelete, setIsDelete] = useState(false);
+
 
   const input = useRef('');
 
@@ -66,6 +70,10 @@ function App({ dispatch, todolist }) {
         name
       }
     })
+    setIsDelete(true);
+    setTimeout(() => {
+      setIsDelete(false);
+    }, 2000);
   }
 
   return (
@@ -79,6 +87,7 @@ function App({ dispatch, todolist }) {
           </div>
         </div>
       </div>
+      {isDelete ? <Alert /> : ''}
       <div className="todolist p-5 col-8 mx-auto">
         <ul className="list-group list-group-flush">
           {todolist.map((todo) => <li key={todo.id} className="list-group-item"><p className="fw-bold">{todo.name}</p> <i onClick={(e) => delTodo(todo.name)} className="fas fa-trash-alt fa-2x"></i></li>)}
