@@ -71,9 +71,10 @@ function App({ dispatch, todolist }) {
       }
     })
     setIsDelete(true);
-    setTimeout(() => {
-      setIsDelete(false);
-    }, 2000);
+  }
+
+  const closeArea = () => {
+    setIsDelete(false);
   }
 
   return (
@@ -87,7 +88,7 @@ function App({ dispatch, todolist }) {
           </div>
         </div>
       </div>
-      {isDelete ? <Alert /> : ''}
+      {isDelete ? <Alert closeArea={closeArea} /> : ''}
       <div className="todolist p-5 col-8 mx-auto">
         <ul className="list-group list-group-flush">
           {todolist.map((todo) => <li key={todo.id} className="list-group-item"><p className="fw-bold">{todo.name}</p> <i onClick={(e) => delTodo(todo.name)} className="fas fa-trash-alt fa-2x"></i></li>)}
