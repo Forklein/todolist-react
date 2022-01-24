@@ -28,6 +28,8 @@ function App({ dispatch, todolist }) {
 
   const [isDelete, setIsDelete] = useState(false);
 
+  const [isAdd, setIsAdd] = useState(false);
+
 
   const input = useRef('');
 
@@ -58,6 +60,7 @@ function App({ dispatch, todolist }) {
           }
         }
       );
+      setIsAdd(true);
     } else {
       alert('Please enter characters')
     }
@@ -75,6 +78,7 @@ function App({ dispatch, todolist }) {
 
   const closeArea = () => {
     setIsDelete(false);
+    setIsAdd(false);
   }
 
   return (
@@ -88,7 +92,8 @@ function App({ dispatch, todolist }) {
           </div>
         </div>
       </div>
-      {isDelete ? <Alert closeArea={closeArea} /> : ''}
+      {isDelete ? <Alert color='danger' message="Todo deleted" closeArea={closeArea} /> : ''}
+      {isAdd ? <Alert color='success' message="Todo created" closeArea={closeArea} /> : ''}
       <div className="todolist p-5 col-8 mx-auto">
         <ul className="list-group list-group-flush">
           {todolist.map((todo) => <li key={todo.id} className="list-group-item"><p className="fw-bold">{todo.name}</p> <i onClick={(e) => delTodo(todo.name)} className="fas fa-trash-alt fa-2x"></i></li>)}
