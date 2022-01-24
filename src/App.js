@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import React from 'react';
 import { Counter } from './features/counter/Counter';
 import { connect } from 'react-redux';

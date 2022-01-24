@@ -38,4 +38,5 @@ const reducer = (state, action) => {
 }
 
 
-export const store = createStore(reducer, staticTodolist, window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__());
+export const store = createStore(reducer, staticTodolist);
+// window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
