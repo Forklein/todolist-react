@@ -44,15 +44,19 @@ function App({ dispatch, todolist }) {
     //   name: input.current.value,
     //   id: todolist.length + 1
     // }
-    dispatch(
-      {
-        type: 'addTodo',
-        payload: {
-          name: input.current.value,
-          id: todolist.length + 1
+    if (input.current.value.length > 0) {
+      dispatch(
+        {
+          type: 'addTodo',
+          payload: {
+            name: input.current.value,
+            id: todolist.length + 1
+          }
         }
-      }
-    );
+      );
+    } else {
+      alert('Please enter characters')
+    }
   }
 
   const delTodo = (name) => {
@@ -75,9 +79,11 @@ function App({ dispatch, todolist }) {
           </div>
         </div>
       </div>
-      <ul className="list-group list-group-flush">
-        {todolist.map((todo) => <li key={todo.id} className="list-group-item">{todo.name} <i onClick={(e) => delTodo(todo.name)} className="fas fa-trash-alt text-danger"></i></li>)}
-      </ul>
+      <div className="todolist p-5 col-8 mx-auto">
+        <ul className="list-group list-group-flush">
+          {todolist.map((todo) => <li key={todo.id} className="list-group-item"><p className="fw-bold">{todo.name}</p> <i onClick={(e) => delTodo(todo.name)} className="fas fa-trash-alt fa-2x"></i></li>)}
+        </ul>
+      </div>
     </div >
   );
 }

@@ -21,7 +21,7 @@ const reducer = (state, action) => {
     switch (action.type) {
         case 'addTodo':
             const newTodo = {
-                name: action.payload.name,
+                name: action.payload.name.trim(),
                 id: action.payload.id
             }
             return [...state, newTodo];

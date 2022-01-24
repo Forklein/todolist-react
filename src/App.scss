@@ -5,4 +5,19 @@
 
 body{
     background-color: $color;
+    .container{
+        .todolist{
+            li{
+                background-color: rgba(255, 255, 255, 0.5)
+            }
+            i{
+                transition: all 0.5s linear;
+                cursor: pointer;
+                &:hover{
+                    color: red !important;
+                }
+            }
+            
+        }
+    }
 }
