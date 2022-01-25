@@ -1,11 +1,16 @@
 import './App.scss';
 import React from 'react';
-import { Counter } from './features/counter/Counter';
 import { connect } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTodo, delTodo } from './features/todos/todosSlice';
+
+
 import Alert from './components/alert';
 
-function App({ dispatch, todolist }) {
+
+function App() {
+  // { dispatch, todolist } Redux senza toolkit
   // const staticTodolist = [
   //   {
   //     name: 'Sveglia',
@@ -26,13 +31,6 @@ function App({ dispatch, todolist }) {
   //   setTodolist(staticTodolist);
   // }, []);
 
-  const [isDelete, setIsDelete] = useState(false);
-
-  const [isAdd, setIsAdd] = useState(false);
-
-
-  const input = useRef('');
-
   // const getValue = () => {
   //   alert(input.current.value);
   // }
@@ -45,41 +43,59 @@ function App({ dispatch, todolist }) {
   //   setTodolist([...todolist, newTodo]);
   // }
 
-  const addTodo = () => {
-    // const newTodo = {
-    //   name: input.current.value,
-    //   id: todolist.length + 1
-    // }
-    if (input.current.value.length > 0) {
-      dispatch(
-        {
-          type: 'addTodo',
-          payload: {
-            name: input.current.value,
-            id: todolist.length + 1
-          }
-        }
-      );
-      setIsAdd(true);
-    } else {
-      alert('Please enter characters')
-    }
-  }
+  // const addTodo = () => {
+  //   if (input.current.value.length > 0) {
+  //     dispatch(
+  //       {
+  //         type: 'addTodo',
+  //         payload: {
+  //           name: input.current.value,
+  //           id: todos.length + 1
+  //         }
+  //       }
+  //     );
+  //     setIsAdd(true);
+  //   } else {
+  //     alert('Please enter characters')
+  //   }
+  // }
 
-  const delTodo = (name) => {
-    dispatch({
-      type: 'delTodo',
-      payload: {
-        name
-      }
-    })
-    setIsDelete(true);
-  }
+  // const delTodo = (name) => {
+  //   dispatch(delTodo({
+  //     type: 'delTodo',
+  //     payload: {
+  //       name
+  //     }
+  //   }))
+  //   setIsDelete(true);
+  // }
+
+
+  const [isDelete, setIsDelete] = useState(false);
+  const [isAdd, setIsAdd] = useState(false);
+
+
+  const todos = useSelector(state => state.todos);
+  const dispatch = useDispatch();
 
   const closeArea = () => {
     setIsDelete(false);
     setIsAdd(false);
   }
+
+  const input = useRef('');
+
+  const add = () => {
+    dispatch(addTodo({ name: input.current.value, id: todos.length + 1 }));
+    setIsAdd(true);
+  }
+
+  const del = (todo) => {
+    dispatch(delTodo({ name: todo }));
+    setIsDelete(true);
+  }
+
+
 
   return (
     <div className="container text-center">
@@ -88,7 +104,7 @@ function App({ dispatch, todolist }) {
         <div className="row">
           <div className="col-6 mx-auto">
             <input type="text" ref={input}></input>
-            <button onClick={addTodo} className="btn btn-success mx-2">Add</button>
+            <button onClick={add} className="btn btn-success mx-2">Add</button>
           </div>
         </div>
       </div>
@@ -96,15 +112,16 @@ function App({ dispatch, todolist }) {
       {isAdd ? <Alert color='success' message="Todo created" closeArea={closeArea} /> : ''}
       <div className="todolist p-5 col-8 mx-auto">
         <ul className="list-group list-group-flush">
-          {todolist.map((todo) => <li key={todo.id} className="list-group-item"><p className="fw-bold">{todo.name}</p> <i onClick={(e) => delTodo(todo.name)} className="fas fa-trash-alt fa-2x"></i></li>)}
+          {todos.map((todo) => <li key={todo.id} className="list-group-item"><p className="fw-bold">{todo.name}</p> <i onClick={(e) => del(todo.name)} className="fas fa-trash-alt fa-2x"></i></li>)}
         </ul>
       </div>
     </div >
   );
 }
 
-const matchStateToProps = (state) => {
-  return { todolist: [...state] }
-}
+// const matchStateToProps = (state) => {
+//   return { todolist: [...state] }
+// }
 
-export default connect(matchStateToProps)(App);
+export default App;
+// connect(matchStateToProps)(App) Con redux senza toolkit

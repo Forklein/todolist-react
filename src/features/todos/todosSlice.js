@@ -21,11 +21,12 @@ export const todosSlice = createSlice(
         initialState: staticTodolist,
         reducers: {
             addTodo(state, action) {
-                const newTodo = {
-                    name: action.payload.name.trim(),
-                    id: action.payload.id
-                }
-                return [...state, newTodo];
+                // const newTodo = {
+                //     name: action.payload.name.trim(),
+                //     id: action.payload.id
+                // }
+                // return [...state, newTodo];
+                state.push(action.payload);
             },
             delTodo(state, action) {
                 return state.filter((element) => element.name !== action.payload.name);
@@ -35,6 +36,6 @@ export const todosSlice = createSlice(
 );
 
 // Esportare actions(2) e reducers
-const { actions, reducers } = todosSlice;
+const { actions, reducer } = todosSlice;
 export const { addTodo, delTodo } = actions;
-export default reducers;
+export default reducer;
