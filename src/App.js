@@ -100,8 +100,8 @@ function App() {
   }
 
   return (
-    <div className="container text-center">
-      <h1>My TodoList</h1>
+    <div className="container text-center p-3">
+      <h1 className="text-white">My TodoList</h1>
       <div className="box my-2">
         <div className="row">
           <div className="col-6 mx-auto">
@@ -112,10 +112,16 @@ function App() {
       </div>
       {isDelete ? <Alert color='danger' message="Todo deleted" closeArea={closeArea} /> : ''}
       {isAdd ? <Alert color='success' message="Todo created" closeArea={closeArea} /> : ''}
-      <div className="todolist p-5 col-8 mx-auto">
+      <div className="todolist col-8 mx-auto">
+        <div className="info text-white my-2">
+          <details>
+            <summary>Current Todolist</summary>
+            <p className="m-0">{todos.length} Element</p>
+          </details>
+        </div>
         <ul className="list-group list-group-flush">
           {todos.map((todo) =>
-            <li key={todo.id} className="list-group-item d-flex justify-content-between align-items-center my-2">
+            <li key={todo.id} className="list-group-item d-flex justify-content-between align-items-center mb-2">
               <i onClick={(e) => toggle(todo.id)} className={todo.isDone ? "far fa-check-square fa-2x text-success" : "far fa-check-square fa-2x text-white"}></i>
               <p className="fw-bold m-0">{todo.name}</p>
               <i onClick={(e) => del(todo.id)} className="fas fa-trash-alt fa-2x"></i>

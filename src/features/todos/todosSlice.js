@@ -47,7 +47,7 @@ export const todosSlice = createSlice(
     }
 );
 
-// Esportare actions(2) e reducers
+// Esportare actions(3) e reducers
 const { actions, reducer } = todosSlice;
 export const { addTodo, delTodo, toggleTodo } = actions;
 export default reducer;
