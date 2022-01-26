@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTodo, delTodo } from './features/todos/todosSlice';
+import { addTodo, delTodo, toggleTodo } from './features/todos/todosSlice';
 
 
 import Alert from './components/alert';
@@ -86,16 +86,18 @@ function App() {
   const input = useRef('');
 
   const add = () => {
-    dispatch(addTodo({ name: input.current.value, id: todos.length + 1 }));
+    dispatch(addTodo({ name: input.current.value, id: todos.length + 1, isDone: false }));
     setIsAdd(true);
   }
 
   const del = (todo) => {
-    dispatch(delTodo({ name: todo }));
+    dispatch(delTodo({ id: todo }));
     setIsDelete(true);
   }
 
-
+  const toggle = (todo) => {
+    dispatch(toggleTodo({ id: todo }))
+  }
 
   return (
     <div className="container text-center">
@@ -112,7 +114,13 @@ function App() {
       {isAdd ? <Alert color='success' message="Todo created" closeArea={closeArea} /> : ''}
       <div className="todolist p-5 col-8 mx-auto">
         <ul className="list-group list-group-flush">
-          {todos.map((todo) => <li key={todo.id} className="list-group-item"><p className="fw-bold">{todo.name}</p> <i onClick={(e) => del(todo.name)} className="fas fa-trash-alt fa-2x"></i></li>)}
+          {todos.map((todo) =>
+            <li key={todo.id} className="list-group-item d-flex justify-content-between align-items-center my-2">
+              <i onClick={(e) => toggle(todo.id)} className={todo.isDone ? "far fa-check-square fa-2x text-success" : "far fa-check-square fa-2x text-muted"}></i>
+              <p className="fw-bold m-0">{todo.name}</p>
+              <i onClick={(e) => del(todo.id)} className="fas fa-trash-alt fa-2x"></i>
+            </li>
+          )}
         </ul>
       </div>
     </div >
