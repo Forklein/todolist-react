@@ -12,12 +12,11 @@ body{
             }
             i{
                 cursor: pointer;
-                .fas{
-                    transition: all 0.5s linear;
-                    &:hover{
-                        color: red !important;
-                    }
+                transition: all 0.5s linear;
+                .fas:hover{
+                    color: red !important;
                 }
+                    
             }
             
         }

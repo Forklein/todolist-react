@@ -116,7 +116,7 @@ function App() {
         <ul className="list-group list-group-flush">
           {todos.map((todo) =>
             <li key={todo.id} className="list-group-item d-flex justify-content-between align-items-center my-2">
-              <i onClick={(e) => toggle(todo.id)} className={todo.isDone ? "far fa-check-square fa-2x text-success" : "far fa-check-square fa-2x text-muted"}></i>
+              <i onClick={(e) => toggle(todo.id)} className={todo.isDone ? "far fa-check-square fa-2x text-success" : "far fa-check-square fa-2x text-white"}></i>
               <p className="fw-bold m-0">{todo.name}</p>
               <i onClick={(e) => del(todo.id)} className="fas fa-trash-alt fa-2x"></i>
             </li>
