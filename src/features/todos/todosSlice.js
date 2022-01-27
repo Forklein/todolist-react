@@ -4,7 +4,7 @@ const staticTodolist = [
     {
         name: 'Sveglia',
         id: 1,
-        isDone: false
+        isDone: true
     },
     {
         name: 'Colazione',
@@ -42,7 +42,7 @@ export const todosSlice = createSlice(
                     }
                     return element;
                 })
-            }
+            },
         }
     }
 );

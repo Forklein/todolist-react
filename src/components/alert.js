@@ -1,4 +1,5 @@
 const alert = ({ closeArea, color, message }) => {
+
     return (
         <>
             <div className={`alert alert-${color} d-flex justify-content-between align-items-center`}>

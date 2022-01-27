@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTodo, delTodo, toggleTodo } from './features/todos/todosSlice';
+import { filterTodo } from './features/todos/filterSlice';
 
 
 import Alert from './components/alert';
@@ -76,7 +77,19 @@ function App() {
 
 
   const todos = useSelector(state => state.todos);
+  const activeFilter = useSelector(state => state.filter);
   const dispatch = useDispatch();
+
+  //Filter todos
+  const filteredTodo = todos.filter(todo => {
+    if (activeFilter === 'All') {
+      return true;
+    }
+    if (activeFilter === 'Completed') {
+      return todo.isDone;
+    }
+    return !todo.isDone;
+  })
 
   const closeArea = () => {
     setIsDelete(false);
@@ -99,6 +112,10 @@ function App() {
     dispatch(toggleTodo({ id: todo }))
   }
 
+  const getFilter = (todo) => {
+    dispatch(filterTodo(todo))
+  }
+
   return (
     <div className="container text-center p-3">
       <h1 className="text-white">My TodoList</h1>
@@ -119,8 +136,13 @@ function App() {
             <p className="m-0">{todos.length} Element</p>
           </details>
         </div>
+        <div className="actions">
+          <button onClick={(e) => getFilter('All')} className="btn btn-primary">All</button>
+          <button onClick={(e) => getFilter('Todo')} className="btn btn-primary mx-2 my-2">Todo</button>
+          <button onClick={(e) => getFilter('Completed')} className="btn btn-primary">Completed</button>
+        </div>
         <ul className="list-group list-group-flush">
-          {todos.map((todo) =>
+          {filteredTodo.map((todo) =>
             <li key={todo.id} className="list-group-item d-flex justify-content-between align-items-center mb-2">
               <i onClick={(e) => toggle(todo.id)} className={todo.isDone ? "far fa-check-square fa-2x text-success" : "far fa-check-square fa-2x text-white"}></i>
               <p className="fw-bold m-0">{todo.name}</p>
